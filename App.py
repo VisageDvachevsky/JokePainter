@@ -11,7 +11,6 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 
 color = (255, 0, 0)
-POINT = 'INDEX_FINGER_TIP'
 distance_cm = float(input("Введите длину: ")) * 5.86206897
 
 prev_x = None
@@ -38,14 +37,14 @@ while running:
         right_hip = results.pose_landmarks.landmark[mp_pose.PoseLandmark.RIGHT_HIP]
         left_hip = results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_HIP]
 
-        middleHip_X = (right_hip.x + left_hip.x) / 2
-        middleHip_Y = (right_hip.y + left_hip.y) / 2
+        middle_hip_x = (right_hip.x + left_hip.x) / 2
+        middle_hip_y = (right_hip.y + left_hip.y) / 2
 
         image_height, image_width, _ = image.shape
-        pointBelowMiddlehip_Y = middleHip_Y + (distance_cm / image_height) 
+        point_below_middlehip_y = middle_hip_y + (distance_cm / image_height)
 
-        x = int(middleHip_X * image_width) 
-        y = int(pointBelowMiddlehip_Y * image_height) 
+        x = int(middle_hip_x * image_width)
+        y = int(point_below_middlehip_y * image_height)
 
         if prev_x is not None and prev_y is not None:
             pygame.draw.line(screen, color, (prev_x, prev_y), (x, y), 5)
